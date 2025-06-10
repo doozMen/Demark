@@ -17,9 +17,13 @@ let package = Package(
             name: "Demark",
             targets: ["Demark"]
         ),
+        .executable(
+            name: "demark",
+            targets: ["DemarkCLI"]
+        ),
     ],
     dependencies: [
-        // No external dependencies - uses only WebKit and Foundation
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.5.0"),
     ],
     targets: [
         .target(
@@ -27,6 +31,16 @@ let package = Package(
             dependencies: [],
             resources: [
                 .process("Resources")
+            ],
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
+        ),
+        .executableTarget(
+            name: "DemarkCLI",
+            dependencies: [
+                "Demark",
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
             ],
             swiftSettings: [
                 .enableExperimentalFeature("StrictConcurrency")

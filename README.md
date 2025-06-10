@@ -163,6 +163,52 @@ Then add it to your target:
 )
 ```
 
+### Command-Line Tool
+
+Demark also includes a command-line tool for converting HTML files to Markdown:
+
+```bash
+# Build the CLI tool
+swift build -c release --product demark
+
+# Install to /usr/local/bin (optional)
+cp .build/release/demark /usr/local/bin/
+
+# Or run directly from the build directory
+.build/release/demark --help
+```
+
+#### CLI Usage
+
+```bash
+# Convert a file
+demark input.html -o output.md
+
+# Use stdin/stdout
+echo "<h1>Hello</h1>" | demark -
+
+# Use the fast html-to-md engine
+demark input.html --engine html-to-md
+
+# Customize output format
+demark input.html \
+  --heading-style setext \
+  --bullet-list-marker "*" \
+  --code-block-style indented
+
+# Verbose mode
+demark input.html -v
+```
+
+#### CLI Options
+
+- `-o, --output`: Output file path (default: stdout)
+- `-e, --engine`: Conversion engine (`turndown` or `html-to-md`)
+- `-h, --heading-style`: Heading style (`atx` or `setext`)
+- `-b, --bullet-list-marker`: Bullet list marker (`-`, `*`, or `+`)
+- `-c, --code-block-style`: Code block style (`fenced` or `indented`)
+- `-v, --verbose`: Enable verbose output
+
 ## Usage
 
 ### Basic Conversion
